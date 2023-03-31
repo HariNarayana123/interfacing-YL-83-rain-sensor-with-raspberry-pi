@@ -29,6 +29,7 @@ def check_rainfall():
          return None
      
 while True: 
+  try:   
      res=check_rainfall()
      if(res == True):
             rainfall = read_adc(channel)
@@ -38,4 +39,12 @@ while True:
      else:       
           print("unable to predict")  
      time.sleep(1)
-spi.close()
+  except KeyboardInterrupt:
+        # break out of the loop if the user presses Ctrl-C
+        print("User interrupted the program.")
+        sys.exit()
+  finally:
+    GPIO.cleanup()
+    Spi.close()
+
+   
